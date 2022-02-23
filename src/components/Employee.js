@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { EmployeeContext } from "../contexts/EmployeeContext";
 
 const Employee = ({ employee }) => {
+  const { deleteEmployee } = useContext(EmployeeContext);
+
   const [showModal, setShowModal] = useState(false);
+
   const closeModal = () => setShowModal(false);
   const openModal = () => setShowModal(true);
+
+  useEffect(() => {
+    closeModal();
+  }, [employee]);
 
   return (
     <>
@@ -23,7 +31,11 @@ const Employee = ({ employee }) => {
           </button>
         </OverlayTrigger>
         <OverlayTrigger overlay={<Tooltip id={`tooltip-top`}>Delete</Tooltip>}>
-          <button className="btn text-danger btn-act" data-toggle="modal">
+          <button
+            className="btn text-danger btn-act"
+            data-toggle="modal"
+            onClick={() => deleteEmployee(employee.id)}
+          >
             <i className="material-icons">&#xE872;</i>
           </button>
         </OverlayTrigger>
