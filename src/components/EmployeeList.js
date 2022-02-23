@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Alert, Button, Modal } from "react-bootstrap";
 import { EmployeeContext } from "../contexts/EmployeeContext";
 import AddEmployee from "./AddEmployee";
+import Employee from "./Employee";
 import Pagination from "./Pagination";
 
 const EmployeeList = () => {
@@ -77,20 +78,11 @@ const EmployeeList = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Address</td>
-            <td>Phone</td>
-            <td>Actions</td>
-          </tr>
-          <tr>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Address</td>
-            <td>Phone</td>
-            <td>Actions</td>
-          </tr>
+          {currentEmployee.map((employee) => (
+            <tr key={employee.id}>
+              <Employee employee={employee} />
+            </tr>
+          ))}
         </tbody>
       </table>
 
