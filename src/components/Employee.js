@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { EmployeeContext } from "../contexts/EmployeeContext";
+import EditEmployee from "./EditEmployee";
 
 const Employee = ({ employee }) => {
   const { deleteEmployee } = useContext(EmployeeContext);
@@ -45,7 +46,9 @@ const Employee = ({ employee }) => {
         <Modal.Header>
           <Modal.Title>Edit Employee</Modal.Title>
         </Modal.Header>
-        <Modal.Body>abc</Modal.Body>
+        <Modal.Body>
+          <EditEmployee employee={employee}/>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="success" onClick={closeModal}>
             Close Button
