@@ -1,15 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Alert, Button, Modal } from "react-bootstrap";
+import { EmployeeContext } from "../contexts/EmployeeContext";
 import AddEmployee from "./AddEmployee";
+import Pagination from "./Pagination";
 
 const EmployeeList = () => {
+  const { sorteEmployee } = useContext(EmployeeContext);
   const [showModal, setShowModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleShowAlert = () => {
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2000);
+  };
+
   const openModal = () => {
     setShowModal(true);
   };
+
   const closeModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    closeModal();
+    return () => handleShowAlert();
+  }, [sorteEmployee]);
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [employeePerPage] = useState(5);
+
+  const indexOfLastEmployee = currentPage * employeePerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeePerPage;
+  const currentEmployee = sorteEmployee.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
+  );
+
+  const totalPageNumber = Math.ceil(sorteEmployee.length / employeePerPage);
+
   return (
     <>
       <div className="table-title">
@@ -31,7 +63,9 @@ const EmployeeList = () => {
           </div>
         </div>
       </div>
-      <Alert variant="success">Employee List Update Successfully!</Alert>
+      <Alert variant="success" show={showAlert}>
+        Employee List Update Successfully!
+      </Alert>
       <table className="table table-striped table-hover">
         <thead>
           <tr>
@@ -59,6 +93,13 @@ const EmployeeList = () => {
           </tr>
         </tbody>
       </table>
+
+      <Pagination
+        setCurrentPage={setCurrentPage}
+        currentEmployee={currentEmployee}
+        totalPageNumber={totalPageNumber}
+        sorteEmployee={sorteEmployee}
+      />
 
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header>

@@ -20,6 +20,7 @@ const AddEmployee = () => {
         className="btn btn-success"
         type="submit"
         style={{ width: "100%" }}
+        block
       >
         Add New Employee
       </Button>
