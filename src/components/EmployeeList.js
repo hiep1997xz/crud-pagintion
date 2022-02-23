@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Button, Modal } from "react-bootstrap";
+import AddEmployee from "./AddEmployee";
 
 const EmployeeList = () => {
   const [showModal, setShowModal] = useState(false);
@@ -64,7 +65,7 @@ const EmployeeList = () => {
           <Modal.Title>Add Employee</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>abc</div>
+          <AddEmployee />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="success" onClick={closeModal}>
